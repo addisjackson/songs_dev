@@ -2,20 +2,24 @@
   "name": "songs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "dbinit": "psql -U postgres -f schema.sql",
-    "dbseed": "psql -U postgres -f seed.sql"
-  },  
+    "start": "nodemon server.js",
+    "db:init": "psql -U Rafael -f db/schema.sql",
+    "db:seed": "psql -U Rafael -f db/seed.sql"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "db": "^4.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "nodemon": "^3.0.1",
-    "pg-promise": "^11.5.4"
+    "pg": "^8.11.3",
+    "pg-promise": "^11.5.4",
+    "postgres": "^3.4.3",
+    "supertest": "^6.3.3"
   }
 }

@@ -1,34 +1,31 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const pgp = require('pg-promise')();
-const dotenv = require('dotenv');
+const cors = require("cors");
+const songsController = require("./controllers/songsController"); // Assuming you have a songs route file
+const albumsController = require("./controllers/albumsController"); // Assuming you have an albums route file
 
-dotenv.config();
+// Middleware
+app.use(cors());
+app.use(express.json()); // Parse JSON requests
 
-const db = pgp({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD
+// Routes
+app.use("/songs", songsController);
+app.use("/albums", albumsController);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: "Internal server error" });
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+// Default route
+app.get("/", (req, res) => {
+  res.send("Welcome to Tuner Songs!");
 });
 
-app.get('/songs', async (req, res) => {
-    try {
-      const songs = await db.any('SELECT * FROM songs');
-      res.json(songs);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
-  
-  app.get('/', (req, res) => {
-    res.send('Welcome to Tuner');
-  });
-  
-  
+// 404 route
+app.use((req, res) => {
+  res.status(404).json({ error: "Page not found" });
+});
+
+module.exports = app;
