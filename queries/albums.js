@@ -3,18 +3,18 @@ const db = require("../db/dbConfig");
 // Get all albums
 const getAllAlbums = async () => {
   try {
-    const albums = await db.any("SELECT * FROM albums");
-    return albums;
+    const allAlbums = await db.any("SELECT * FROM albums");
+    return allAlbums;
   } catch (error) {
     throw error;
   }
 };
 
 // Get a single album by ID
-const getAlbumById = async (id) => {
+const getAlbum = async (id) => {
   try {
-    const album = await db.one("SELECT * FROM albums WHERE id = $1", id);
-    return album;
+    const oneAlbum = await db.one("SELECT * FROM albums WHERE id = $1", id);
+    return oneAlbum;
   } catch (error) {
     throw error;
   }
@@ -23,11 +23,11 @@ const getAlbumById = async (id) => {
 // Create a new album
 const createAlbum = async (title, release_date) => {
   try {
-    const album = await db.one(
+    const newAlbum = await db.one(
       "INSERT INTO albums (title, release_date) VALUES ($1, $2) RETURNING *",
       [title, release_date]
     );
-    return album;
+    return newAlbum;
   } catch (error) {
     throw error;
   }
@@ -36,11 +36,11 @@ const createAlbum = async (title, release_date) => {
 // Update an album by ID
 const updateAlbum = async (id, title, release_date) => {
   try {
-    const album = await db.one(
+    const updatedAlbum = await db.one(
       "UPDATE albums SET title = $1, release_date = $2 WHERE id = $3 RETURNING *",
       [title, release_date, id]
     );
-    return album;
+    return updatedAlbum;
   } catch (error) {
     throw error;
   }
@@ -49,8 +49,8 @@ const updateAlbum = async (id, title, release_date) => {
 // Delete an album by ID
 const deleteAlbum = async (id) => {
   try {
-    const result = await db.result("DELETE FROM albums WHERE id = $1", id);
-    return result.rowCount;
+    const deletedAlbum = await db.result("DELETE FROM albums WHERE id = $1 RETURNING *", id);
+    return deletedAlbum;
   } catch (error) {
     throw error;
   }
@@ -58,8 +58,9 @@ const deleteAlbum = async (id) => {
 
 module.exports = {
   getAllAlbums,
-  getAlbumById,
+  getAlbum,
   createAlbum,
   updateAlbum,
   deleteAlbum,
 };
+

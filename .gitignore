@@ -1,2 +1,4 @@
-DS_STORES
-node_modules
+.DS_STORES
+.node_modules
+.vscode
+

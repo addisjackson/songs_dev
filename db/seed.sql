@@ -1,49 +1,35 @@
-\c songs_dev
 
-
--- Create the "songs" table if it doesn't exist
-CREATE TABLE IF NOT EXISTS songs (
-    id INTEGER PRIMARY KEY,
-    artist TEXT,
-    name TEXT,
-    album TEXT,
-    title TEXT,
-    is_favorite BOOLEAN
-);
-
-
-INSERT INTO songs (artist, name, album, title, is_favorite)
-VALUES
-    ('The Beatles', 'Let It Be', 'Let It Be', 'Let It Be', true),
-    ('Queen', 'Bohemian Rhapsody', 'A Night at the Opera', 'Bohemian Rhapsody', true),
-    ('Michael Jackson', 'Billie Jean', 'Thriller', 'Billie Jean', true),
-    ('Bob Dylan', 'Like a Rolling Stone', 'Highway 61 Revisited', 'Like a Rolling Stone', false),
-    ('Elton John', 'Rocket Man', 'Honky Château', 'Rocket Man', false),
-    ('Led Zeppelin', 'Stairway to Heaven', 'IV', 'Stairway to Heaven', true),
-    ('Pink Floyd', 'Comfortably Numb', 'The Wall', 'Comfortably Numb', true),
-    ('U2', 'With or Without You', 'The Joshua Tree', 'With or Without You', true),
-    ('Nirvana', 'Smells Like Teen Spirit', 'Nevermind', 'Smells Like Teen Spirit', false),
-    ('The Rolling Stones', 'Paint It Black', 'Aftermath', 'Paint It Black', true),
-    ('The Who', 'Baba O''Riley', 'Who''s Next', 'Baba O''Riley', false),
-    ('John Lennon', 'Imagine', 'Imagine', 'Imagine', true),
-    ('David Bowie', 'Space Oddity', 'David Bowie', 'Space Oddity', false),
-    ('The Eagles', 'Hotel California', 'Hotel California', 'Hotel California', true),
-    ('Adele', 'Someone Like You', '21', 'Someone Like You', true),
-    ('Fleetwood Mac', 'Go Your Own Way', 'Rumours', 'Go Your Own Way', false),
-    ('Prince', 'Purple Rain', 'Purple Rain', 'Purple Rain', true),
-    ('The Police', 'Every Breath You Take', 'Synchronicity', 'Every Breath You Take', false),
-    ('The Doors', 'Light My Fire', 'The Doors', 'Light My Fire', true),
-    ('Johnny Cash', 'Ring of Fire', 'Ring of Fire: The Best of Johnny Cash', 'Ring of Fire', false),
-    ('Radiohead', 'Creep', 'Pablo Honey', 'Creep', true),
-    ('Whitney Houston', 'I Will Always Love You', 'The Bodyguard: Original Soundtrack Album', 'I Will Always Love You', true),
-    ('Elvis Presley', 'Can''t Help Falling in Love', 'Blue Hawaii', 'Can''t Help Falling in Love', false),
-    ('Journey', 'Don''t Stop Believin''', 'Escape', 'Don''t Stop Believin''', true),
-    ('Madonna', 'Like a Virgin', 'Like a Virgin', 'Like a Virgin', false),
-    ('The Beach Boys', 'Good Vibrations', 'Smiley Smile', 'Good Vibrations', true),
-    ('Guns N'' Roses', 'Sweet Child o'' Mine', 'Appetite for Destruction', 'Sweet Child o'' Mine', true),
-    ('Aerosmith', 'Dream On', 'Aerosmith', 'Dream On', false),
-    ('Coldplay', 'Fix You', 'X&Y', 'Fix You', true),
-    ('Bee Gees', 'Stayin Alive', 'Saturday Night Fever: The Original Movie Sound Track', 'Stayin Alive', false);
+INSERT INTO songs (artist, name, album, is_favorite) VALUES
+('The Beatles', 'Let It Be', 'Let It Be', true),
+('Queen', 'Bohemian Rhapsody', 'A Night at the Opera', true),
+('Michael Jackson', 'Billie Jean', 'Thriller', true),
+('Bob Dylan', 'Like a Rolling Stone', 'Highway 61 Revisited', false),
+('Elton John', 'Rocket Man', 'Honky Château', false),
+('Led Zeppelin', 'Stairway to Heaven', 'IV', true),
+('Pink Floyd', 'Comfortably Numb', 'The Wall', true),
+('U2', 'With or Without You', 'The Joshua Tree', true),
+('Nirvana', 'Smells Like Teen Spirit', 'Nevermind', false),
+('The Rolling Stones', 'Paint It Black', 'Aftermath', true),
+('The Who', 'Baba O''Riley', 'Who''s Next', false),
+('John Lennon', 'Imagine', 'Imagine', true),
+('David Bowie', 'Space Oddity', 'David Bowie', false),
+('The Eagles', 'Hotel California', 'Hotel California', true),
+('Adele', 'Someone Like You', '21', true),
+('Fleetwood Mac', 'Go Your Own Way', 'Rumours', false),
+('Prince', 'Purple Rain', 'Purple Rain', true),
+('The Police', 'Every Breath You Take', 'Synchronicity', false),
+('The Doors', 'Light My Fire', 'The Doors', true),
+('Johnny Cash', 'Ring of Fire', 'Ring of Fire: The Best of Johnny Cash', false),
+('Radiohead', 'Creep', 'Pablo Honey', true),
+('Whitney Houston', 'I Will Always Love You', 'The Bodyguard: Original Soundtrack Album', true),
+('Elvis Presley', 'Can''t Help Falling in Love', 'Blue Hawaii', false),
+('Journey', 'Don''t Stop Believin''', 'Escape', true),
+('Madonna', 'Like a Virgin', 'Like a Virgin', false),
+('The Beach Boys', 'Good Vibrations', 'Smiley Smile', true),
+('Guns N'' Roses', 'Sweet Child o'' Mine', 'Appetite for Destruction', true),
+('Aerosmith', 'Dream On', 'Aerosmith', false),
+('Coldplay', 'Fix You', 'X&Y', true),
+('Bee Gees', 'Stayin Alive', 'Saturday Night Fever: The Original Movie Sound Track', false);
 
 -- Seed album data with real album titles and release dates
 INSERT INTO albums (title, release_date) VALUES

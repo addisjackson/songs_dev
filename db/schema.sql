@@ -1,19 +1,18 @@
 DROP DATABASE IF EXISTS songs_dev;
--- DROP TABLE IF EXISTS songs;
+DROP TABLE IF EXISTS songs;
 
 CREATE DATABASE songs_dev;
 
-\c songs_dev;
 
-
-CREATE TABLE songs (
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  artist TEXT NOT NULL,
-  album TEXT,
-  title TEXT,
-  is_favorite BOOLEAN
+-- Create the "songs" table if it doesn't exist
+CREATE TABLE IF NOT EXISTS songs (
+    id SERIAL PRIMARY KEY,
+    artist VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    album VARCHAR(255),
+    is_favorite BOOLEAN
 );
+
 
 
 CREATE TABLE albums (
@@ -21,3 +20,4 @@ CREATE TABLE albums (
   title VARCHAR(255) NOT NULL,
   release_date DATE
 );
+

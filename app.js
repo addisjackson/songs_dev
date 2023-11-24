@@ -1,31 +1,23 @@
-const express = require("express");
-const app = express();
+const express = require('express');
 const cors = require("cors");
-const songsController = require("./controllers/songsController"); // Assuming you have a songs route file
-const albumsController = require("./controllers/albumsController"); // Assuming you have an albums route file
+const app = express();
+// CONTROLLERS
+const songsController = require("./controllers/songsController.js");
+const albumsController = require("./controllers/albumsController.js");
 
-// Middleware
 app.use(cors());
-app.use(express.json()); // Parse JSON requests
+app.use(express.json());
 
-// Routes
 app.use("/songs", songsController);
-app.use("/albums", albumsController);
+app.use("/albums", albumsController)
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ error: "Internal server error" });
+app.get('/', (req, res) => {
+    res.send("welcome to Turner Songs")
 });
 
-// Default route
-app.get("/", (req, res) => {
-  res.send("Welcome to Tuner Songs!");
-});
-
-// 404 route
-app.use((req, res) => {
-  res.status(404).json({ error: "Page not found" });
-});
+//404
+app.get("*", (req, res) => {
+    res.status(404).send("page not found")
+})
 
 module.exports = app;

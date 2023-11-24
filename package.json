@@ -5,15 +5,16 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "db:init": "psql -U Rafael -f db/schema.sql",
-    "db:seed": "psql -U Rafael -f db/seed.sql"
+    "db:init": "psql -U postgres -f db/schema.sql",
+    "db:seed": "psql -U postgres -f db/seed.sql"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "db": "^4.0.1",
+    "db": "^5.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "nodemon": "^3.0.1",

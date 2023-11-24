@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllSongs, getOneSong, createSong, deleteSong, updateSong } = require('../controllers/songs.controller');
+const { getAllSongs, getOneSong, createSong, deleteSong, updateSong } = require('../queries/songs.js');
 const { checkName, checkArtist, checkAlbum, checkTitle, checkFavorite } = require('../Validation/checkSongs');
 
 // Sample data (you would replace this with actual data from your database)
@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST a new song
-router.post('/', async (req, res) => {
+router.post('/',checkName, checkArtist, checkAlbum, checkTitle, checkFavorite, async (req, res) => {
   try {
     const { name, artist, album, title, is_favorite } = req.body;
 
@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
     if (typeof is_favorite !== 'boolean') {
       return res.status(400).json({ error: 'is_favorite must be a boolean value' });
     }
-    const createSong = await createSong({ name, artist, album, title, is_favorite });
+    const createdSong = await createSong({ name, artist, album, title, is_favorite });
     const songs = await getAllSongs();
 
     const newId = songs[songs.length - 1].id + 1;
@@ -58,8 +58,10 @@ router.post('/', async (req, res) => {
 });
 
 // PUT (update) a song by ID
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   const requestedId = parseInt(req.params.id);
+  const updatedSong = await updateSong(requestedId, req.body);
+
   const songIndex = songs.findIndex(song => song.id === requestedId);
 
   if (songIndex === -1) {

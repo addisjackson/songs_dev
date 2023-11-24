@@ -1,64 +1,64 @@
 const express = require("express");
 const albums = express.Router();
-const { getAllAlbums, getAlbumById, createAlbum, updateAlbum, deleteAlbum } = require("../queries/albums.js"); // Corrected import statement
 
-// Route to get all albums
+const {
+  getAllAlbums,
+  getAlbum,
+  createAlbum,
+  deleteAlbum,
+  updateAlbum
+} = require("../queries/albums.js");
+const { checkReleaseDate } = require("../validation/checkSongs")
+
 albums.get("/", async (req, res) => {
-  try {
-    const albumsList = await albumController.getAllAlbums(); // Updated variable name to avoid naming conflict
-    res.status(200).json(albumsList); // Updated variable name
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
+  const allAlbums = await getAllAlbums();
+  if (allAlbums[0]) {
+    res.status(200).json(allAlbums);
+  } else {
+    res.status(500).json({ error: "server error!" });
   }
 });
 
-// Route to get a single album by ID
 albums.get("/:id", async (req, res) => {
   const { id } = req.params;
-  try {
-    const album = await albumController.getAlbumById(id);
-    res.status(200).json(album);
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
+  const album = await getAlbum(id);
+  if (album) {
+    res.json(album);
+  } else {
+    res.status(404).json({ error: "not found" });
   }
 });
 
-// Route to create a new album
-albums.post("/", async (req, res) => {
-  const { title, release_date } = req.body;
+albums.post("/", checkReleaseDate, async (req, res) => {
   try {
-    const album = await albumController.createAlbum(title, release_date);
-    res.status(201).json(album);
+    const album = await createAlbum(req.body);
+    res.json(album)
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    return error;
   }
 });
 
-// Route to update an album by ID
-albums.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { title, release_date } = req.body;
-  try {
-    const album = await albumController.updateAlbum(id, title, release_date);
-    res.status(200).json(album);
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
-// Route to delete an album by ID
 albums.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  try {
-    const rowCount = await albumController.deleteAlbum(id);
-    if (rowCount === 1) {
-      res.status(204).end();
-    } else {
-      res.status(404).json({ error: "Album not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
+  const deletedAlbum = await deleteAlbum(id);
+
+  if (deletedAlbum.id) {
+    res.status(200).json(deletedAlbum)
+  } else {
+    res.status(404).json("Album not found!");
   }
 });
 
+albums.put("/:id", checkReleaseDate, async (req, res) => {
+  const { id } = req.params;
+
+  const updatedAlbum = await updateAlbum(req.body, id);
+  if (updatedAlbum.id) {
+    res.status(200).json(updatedAlbum);
+  } else {
+    res.status(404).json({error: "Album not updated"});
+  }
+})
+
 module.exports = albums;
+// EXPORT our Albums Router
