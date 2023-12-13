@@ -7,7 +7,7 @@ const getAllSongs = async () => {
   } catch(err) {
     return err
   } 
-}
+};
 
 const getSong = async (id) => {
     try {
@@ -38,8 +38,7 @@ try {
 } catch (err) {
  return err
 }
-
-}
+};
 
 const updateSong = async (song, id) => {
 const {name, artist, album, is_favorite} = song;
@@ -51,9 +50,9 @@ try {
 } catch (err) {
     return err;
 }
-}
+};
 
 
 
-// we will have a bunch of exports
+
 module.exports = { getAllSongs, getSong, createSong, deleteSong, updateSong }
