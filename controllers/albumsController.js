@@ -8,7 +8,7 @@ const {
   deleteAlbum,
   updateAlbum
 } = require("../queries/albums.js");
-const { checkReleaseDate } = require("../validation/checkSongs")
+const { checkReleaseDate } = require("../validation/checkSongs.js")
 
 albums.get("/", async (req, res) => {
   const allAlbums = await getAllAlbums();

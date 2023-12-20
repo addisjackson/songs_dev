@@ -8,7 +8,7 @@ const {
   deleteSong,
   updateSong
 } = require("../queries/songs.js");
-const { checkName, checkFavorite, checkAlbum, checkArtist } = require("../Validation/checkSongs");
+const { checkName, checkFavorite, checkAlbum, checkArtist } = require("../validation/checkSongs.js");
 
 songs.get("/", async (req, res) => {
   const allSongs = await getAllSongs();

@@ -17,10 +17,16 @@
     "db": "^5.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.0.2",
     "pg": "^8.11.3",
     "pg-promise": "^11.5.4",
     "postgres": "^3.4.3",
     "supertest": "^6.3.3"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.4.1",
+    "@types/express": "^4.17.21",
+    "pgpromise": "^0.1.1",
+    "serverless-http": "^3.2.0"
   }
 }
